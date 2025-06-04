@@ -1,26 +1,26 @@
 <div align="center">
-    <a href="https://github.com/MarSeventh/CloudFlare-ImgBed"><img width="80%" alt="logo" src="static/readme/banner.png"/></a>
+    <a href="https://222.ddns-ip.net/CloudFlare-ImgBed"><img width="80%" alt="logo" src="static/readme/banner.png"/></a>
     <p><em>🗂️开源文件托管解决方案，基于 Cloudflare Pages，支持 Telegram Bot 、 Cloudflare R2 ，S3 等多种存储渠道</em></p>
     <div>
-        <a href="https://github.com/MarSeventh/CloudFlare-ImgBed/blob/main/LICENSE">
+        <a href="https://222.ddns-ip.net/CloudFlare-ImgBed/blob/main/LICENSE">
         <img src="https://img.shields.io/github/license/MarSeventh/CloudFlare-ImgBed" alt="License" />
         </a>
-        <a href="https://github.com/MarSeventh/CloudFlare-ImgBed/releases">
+        <a href="https://222.ddns-ip.net/CloudFlare-ImgBed/releases">
         <img src="https://img.shields.io/github/release/MarSeventh/CloudFlare-ImgBed" alt="latest version" />
         </a>
-        <a href="https://github.com/MarSeventh/CloudFlare-ImgBed/releases">
+        <a href="https://222.ddns-ip.net/CloudFlare-ImgBed/releases">
         <img src="https://img.shields.io/github/downloads/MarSeventh/CloudFlare-ImgBed/total?color=%239F7AEA&logo=github" alt="Downloads" />
         </a>
         <a href="https://hub.docker.com/r/marseventh/cloudflare-imgbed">
   		  <img src="https://img.shields.io/docker/pulls/marseventh/cloudflare-imgbed?style=flat-square" alt="Docker Pulls" />
 		</a>
-        <a href="https://github.com/MarSeventh/CloudFlare-ImgBed/issues">
+        <a href="https://222.ddns-ip.net/CloudFlare-ImgBed/issues">
           <img src="https://img.shields.io/github/issues/MarSeventh/CloudFlare-ImgBed" alt="Issues" />
         </a>
-        <a href="https://github.com/MarSeventh/CloudFlare-ImgBed/stargazers">
+        <a href="https://222.ddns-ip.net/CloudFlare-ImgBed/stargazers">
           <img src="https://img.shields.io/github/stars/MarSeventh/CloudFlare-ImgBed" alt="Stars" />
         </a>
-        <a href="https://github.com/MarSeventh/CloudFlare-ImgBed/network/members">
+        <a href="https://222.ddns-ip.net/CloudFlare-ImgBed/network/members">
           <img src="https://img.shields.io/github/forks/MarSeventh/CloudFlare-ImgBed" alt="Forks" />
         </a>
     </div>
@@ -42,7 +42,7 @@
 
 1. 部署使用出现问题，请先仔细查阅文档、常见问题解答以及已有issues。
 
-2. **前端仓库**：[MarSeventh/Sanyue-ImgHub](https://github.com/MarSeventh/Sanyue-ImgHub)
+2. **前端仓库**：[MarSeventh/Sanyue-ImgHub](https://222.ddns-ip.net/Sanyue-ImgHub)
 
 3. **注意**：本仓库为[Telegraph-Image](https://github.com/cf-pages/Telegraph-Image)项目的重制版，如果你觉得本项目不错，在支持本项目的同时，也请支持原项目。
 
@@ -242,7 +242,7 @@ Fix Bugs:
 Add Features:
 
 - 管理端支持拉黑上传IP（Dashboard->用户管理->允许上传）
-- 管理端批量操作支持按照用户选择的顺序进行（[#issue124](https://github.com/MarSeventh/CloudFlare-ImgBed/issues/124)）
+- 管理端批量操作支持按照用户选择的顺序进行（[#issue124](https://222.ddns-ip.net/CloudFlare-ImgBed/issues/124)）
 - `random`接口优化，减少KV操作次数，增加`content`参数，支持返回指定类型的文件
 - 接入CloudFlare Cache API，提升 list 相关接口访问速度
 - 正常读取返回图片的CDN缓存时间从1年调整为7天，防止缓存清除不成功的情况下图片长时间内仍可以访问的问题
@@ -612,7 +612,7 @@ Add Features:
 <details>
     <summary>Docker Compose部署（推荐）</summary>
 
-1. 新建`docker-compose.yml`文件，复制项目根目录下[docker-compose.yml](https://github.com/MarSeventh/CloudFlare-ImgBed/blob/main/docker-compose.yml)的内容。
+1. 新建`docker-compose.yml`文件，复制项目根目录下[docker-compose.yml](https://222.ddns-ip.net/CloudFlare-ImgBed/blob/main/docker-compose.yml)的内容。
 
 2. 在`docker-compose.yml`同级目录下新建`wrangler.toml`配置文件，其内容为项目名称，环境变量等。（详情参见官方文档[Configuration - Wrangler (cloudflare.com)](https://developers.cloudflare.com/workers/wrangler/configuration/)）
 
@@ -833,7 +833,7 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 
 ## 3.2定制化修改
 
-按照`3.1`步骤部署完成后，前往仓库[MarSeventh/Sanyue-ImgHub](https://github.com/MarSeventh/Sanyue-ImgHub?tab=readme-ov-file)，按照操作说明进行DIY和打包操作，最后将打包好的`/dist`目录中的内容替换到该仓库的根目录下即可（复制+替换）。
+按照`3.1`步骤部署完成后，前往仓库[MarSeventh/Sanyue-ImgHub](https://222.ddns-ip.net/Sanyue-ImgHub?tab=readme-ov-file)，按照操作说明进行DIY和打包操作，最后将打包好的`/dist`目录中的内容替换到该仓库的根目录下即可（复制+替换）。
 
 # 4.Usage
 
@@ -1008,7 +1008,7 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 ## 6.1未设置`ALLOWED_DOMAINS`，但无法跨域访问？
 
 - 请检查你的cloudflare防火墙设置（例如hotlink保护是否开启）
-- 参见[Issue #8](https://github.com/MarSeventh/CloudFlare-ImgBed/issues/8)
+- 参见[Issue #8](https://222.ddns-ip.net/CloudFlare-ImgBed/issues/8)
 
 ## 6.2如何通过PicGo上传？
 
@@ -1041,13 +1041,13 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 ## 6.6后台进行删除、拉黑等操作时不能立即生效
 
 - 与CDN缓存有关
-- 详见[[重要\]关于CDN缓存的说明（删除、拉黑等操作延迟生效解决方案） · Issue #123 · MarSeventh/CloudFlare-ImgBed (github.com)](https://github.com/MarSeventh/CloudFlare-ImgBed/issues/123)
+- 详见[[重要\]关于CDN缓存的说明（删除、拉黑等操作延迟生效解决方案） · Issue #123 · MarSeventh/CloudFlare-ImgBed (github.com)](https://222.ddns-ip.net/CloudFlare-ImgBed/issues/123)
 
 </details>
 
 # 7.Tips
 
-- 前端开源，参见[MarSeventh/Sanyue-ImgHub](https://github.com/MarSeventh/Sanyue-ImgHub)项目。
+- 前端开源，参见[MarSeventh/Sanyue-ImgHub](https://222.ddns-ip.net/Sanyue-ImgHub)项目。
 
 - **赞助**：项目维护不易，喜欢本项目的话，可以作者大大一点小小的鼓励哦，您的每一份支持都是我前进的动力\~ 
 
