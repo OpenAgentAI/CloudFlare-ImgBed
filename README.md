@@ -261,7 +261,7 @@ Add Features:
 
 ## 2024.12.12
 
-Add Features: 
+Add Features:
 
 - 后端支持上传失败自动切换其他渠道重试
 - 优化404、blockimg、whitelistmode等返回状态的显示样式
@@ -406,37 +406,37 @@ Add Features:
     <summary>项目特性</summary>
 
 - **开源**
-  
+
   - 前端开源（可自行修改、打包使用）
-  
+
 - **炫酷的动效（**
-  
+
   - 流畅丝滑的过渡动画~
   - 上传文件实现呼吸灯效果
   - 灵动的操作体验
-  
+
 - **人性化上传**
-  
+
   - **覆盖大多数文件格式**：支持绝大多数常见**图片、视频、动图**等，同时也支持其他大多数格式的文件
-  
+
   - **支持多种存储渠道**：支持 **Telegram Bot**, **Cloudflare R2**, **S3**  等多种存储渠道一键切换
-  
+
     > Telegram Bot渠道：上传文件大小限制为20MB，提供客户端和服务端压缩功能
     >
     > Cloudflare R2渠道：上传大小不限，但超过免费额度会扣费，详见[Pricing | Cloudflare R2 docs](https://developers.cloudflare.com/r2/pricing/)
     >
     > ![](static/readme/202411052346701.png)
-  
+
   - **上传方式多样**：支持多种上传方式（**拖拽点击、粘贴**）（Web/API)
-  
+
     > 1. 粘贴上传支持**文件**和**URL**
     > 2. 支持批量上传（不限同时选择文件数量，但为了保证稳定性，同时处于上传状态的文件最多为10个）
     > 3. 上传显示实时上传进度
     > 4. Web和API端上传图片，均可直接展示在管理页面中
     > 5. 过大图片在前端进行压缩，提升上传稳定性和加载性能;支持自定义压缩质量，自定义开启前后端压缩功能
-    
+
   - **支持指定上传目录**
-  
+
 - **多样化复制**
 
   - 支持**整体复制**和**单独复制**（整体复制即将所有链接通过换行串联起来后复制）
@@ -450,20 +450,20 @@ Add Features:
   - 支持Web和API**上传认证**（感谢[hl128k](https://github.com/hl128k)）
   - 支持访问域名限制（感谢[hl128k](https://github.com/hl128k)）
   - 支持上传IP统计，支持禁止指定IP上传
-  
+
 - **支持页面自定义**
   - **背景自定义**
-  
+
     > 1. 页面背景支持**单图**、**自定义多图轮播**、**bing随机图轮播**等多种模式
     > 2. 背景透明度、切换时间支持自定义
-  
+
   - **网站信息自定义**
-  
+
     > 1. 自定义图床名称和Logo
     > 2. 自定义网站标题和Icon
     > 3. 页脚传送门自定义
     > 4. 支持页脚隐藏
-  
+
 - **一些小功能**
   - 支持**随机图**API，从图床中随机返回一张图片
 
@@ -525,22 +525,22 @@ Add Features:
 
   <details>
       <summary>Cloudflare R2渠道开通方式</summary>
-  
-  
+
+
   1. 前往Cloudflare Dashboard，选择`R2 存储对象`
-  
+
      ![](static/readme/202411052318204.png)
-  
+
   2. 选择`创建存储桶`，名称随意，填完后点击`创建存储桶`即可完成创建
-  
+
      ![](static/readme/202411052319402.png)
-  
+
   3. 根据需求可选操作：如果**需要启用图像审查，需要开启存储桶的公网访问权限**，有两种开启方式，详见下图。无论你选择哪种方式，都需要记下完整的公网访问链接，格式为`https://xxxx.xxx`
-  
+
      ![image-20241105232759131](static/readme/202411052327191.png)
-  
+
   </details>
-  
+
 - **S3** API渠道：在服务提供商处，准备`S3_ACCESS_KEY_ID`、`S3_SECRET_ACCESS_KEY`、`S3_BUCKET_NAME`、`S3_ENDPOINT`等必须参数。（常见服务提供商密钥获取教程参见：[CloudFlare-ImgBed常用S3存储配置教程 – yunsen2025的小窝](https://www.yunsen2025.top/cloudflare-imgbed-s3-she-zhi/)）
 
 </details>
@@ -679,7 +679,7 @@ Add Features:
 <details>
     <summary>v2.0 后台认证、自定义页面、缓存清除等设置</summary>
 
-​    
+​
 
 请前往 管理端->系统设置 界面，按照提示进行设置，如果有不清楚的设置项，可参考下方v1.0版本的设置介绍内容。
 
@@ -860,16 +860,16 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 | ------------ | ------------------------------------------------------------ |
 | **接口功能** | 上传图片或视频                                               |
 | **请求方法** | POST                                                         |
-| **请求参数** | **Query参数**：<br />`authCode`: string类型，即为你设置的认证码<br />`serverCompress`: boolean类型，表示是否开启服务端压缩（仅针对图片文件、Telegram上传渠道生效，默认为`true`）<br />`uploadChannel`: string类型，可选取值为`telegram`、`cfr2`和`s3`，分别代表 telegram bot 渠道、Cloudflare R2 渠道和 S3 渠道，默认为`telegram` 渠道<br />`autoRetry`: boolean类型，表示是否开启上传失败自动切换渠道重试，默认开启<br />`uploadNameType`: string类型，表示文件命名方式，可选值为`[default, index, origin, short]`，分别代表默认`前缀_原名`命名、`仅前缀`命名、`仅原名`命名和`短链接`命名法，默认为`default`<br />`returnFormat`:string类型，表示返回链接格式，可选值为`[default, full]`，分别代表默认的`/file/id`格式、完整链接格式<br />`uploadFolder`:string类型，指定上传目录，用相对路径表示，例如上传到img/test目录需填`img/test`<br />**Body参数(application/form-data)**：<br />`file`: file类型，你要上传的文件 |
+| **请求参数** | **Query参数**：<br />`authCode`: string类型，即为你设置的认证码<br />`serverCompress`: boolean类型，表示是否开启服务端压缩（仅针对图片文件、Telegram上传渠道生效，默认为`false`）<br />`uploadChannel`: string类型，可选取值为`telegram`、`cfr2`和`s3`，分别代表 telegram bot 渠道、Cloudflare R2 渠道和 S3 渠道，默认为`telegram` 渠道<br />`autoRetry`: boolean类型，表示是否开启上传失败自动切换渠道重试，默认开启<br />`uploadNameType`: string类型，表示文件命名方式，可选值为`[default, index, origin, short]`，分别代表默认`前缀_原名`命名、`仅前缀`命名、`仅原名`命名和`短链接`命名法，默认为`default`<br />`returnFormat`:string类型，表示返回链接格式，可选值为`[default, full]`，分别代表默认的`/file/id`格式、完整链接格式<br />`uploadFolder`:string类型，指定上传目录，用相对路径表示，例如上传到img/test目录需填`img/test`<br />**Body参数(application/form-data)**：<br />`file`: file类型，你要上传的文件 |
 | **返回响应** | `data[0].src`为获得的图片链接（注意不包含域名，需要自己添加） |
 
 > **请求示例**：
 >
 > ```bash
 > curl --location --request POST 'https://your.domain/upload?authCode=your_authCode' \
-> 
+>
 > --header 'User-Agent: Apifox/1.0.0 (https://apifox.com)' \
-> 
+>
 > --form 'file=@"D:\\杂文件\\壁纸\\genshin109.jpg"'
 > ```
 >
@@ -1049,10 +1049,10 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
 
 - 前端开源，参见[MarSeventh/Sanyue-ImgHub](https://222.ddns-ip.net/Sanyue-ImgHub)项目。
 
-- **赞助**：项目维护不易，喜欢本项目的话，可以作者大大一点小小的鼓励哦，您的每一份支持都是我前进的动力\~ 
+- **赞助**：项目维护不易，喜欢本项目的话，可以作者大大一点小小的鼓励哦，您的每一份支持都是我前进的动力\~
 
   <a href="https://afdian.com/a/marseventh"><img width="200" src="https://pic1.afdiancdn.com/static/img/welcome/button-sponsorme.png" alt=""></a>
-  
+
 - **Sponsors**：感谢以下赞助者对本项目的支持！
 
   <a href="https://afdian.com/a/nothin">
@@ -1065,8 +1065,8 @@ Web端在登录页面输入你的**认证码**即可登录使用；API端需要�
         <img src="https://pic1.afdiancdn.com/user/73b45190c98711eeaa425254001e7c00/avatar/26afa95554d4bbcd748e6432ab56f824_w580_h580_s145.jpeg?imageView2/1/w/240/h/240" width="100"/></a><a href="https://afdian.com/a/XinToolKit">
         <img src="https://pic1.afdiancdn.com/user/a1c1cb08695c11edb9e352540025c377/avatar/83d5cc8895f5357e627e86aabd9f848e_w1080_h1028_s317.jpg?imageView2/1/w/240/h/240" width="100"/></a><a href="https://www.yunsen2025.top">
         <img src="https://pic1.afdiancdn.com/user/b9aa4780aa1c11edab6c52540025c377/avatar/0c75630cfa3ac6a921acd8cc2a55505a_w1024_h1024_s42.jpeg?imageView2/1/w/120/h/120" width="100"/></a>
-  
-  
+
+
 
 # 8.Star History
 

@@ -78,7 +78,7 @@ export async function onRequestPost(context) {  // Contents of context object
     securityConfig = await fetchSecurityConfig(env);
     rightAuthCode = securityConfig.auth.user.authCode;
     moderateContentApiKey = securityConfig.upload.moderate.apiKey;
-    
+
     // 鉴权
     if (!authCheck(env, url, request)) {
         return UnauthorizedException('Unauthorized');
@@ -120,7 +120,7 @@ export async function onRequestPost(context) {  // Contents of context object
             uploadChannel = 'TelegramNew';
             break;
     }
-    
+
     // 错误处理和遥测
     if (env.dev_mode === undefined || env.dev_mode === null || env.dev_mode !== 'true') {
         await errorHandling(context);
@@ -130,7 +130,7 @@ export async function onRequestPost(context) {  // Contents of context object
     // img_url 未定义或为空的处理逻辑
     if (typeof env.img_url == "undefined" || env.img_url == null || env.img_url == "") {
         return new Response('Error: Please configure KV database', { status: 500 });
-    } 
+    }
 
     // 获取文件信息
     const time = new Date().getTime();
@@ -149,7 +149,7 @@ export async function onRequestPost(context) {  // Contents of context object
         uploadFolder = fileName.split('/').slice(0, -1).join('/');
     }
     // 处理文件夹路径格式，确保没有开头的/
-    const normalizedFolder = uploadFolder 
+    const normalizedFolder = uploadFolder
         ? uploadFolder.replace(/^\/+/, '') // 移除开头的/
             .replace(/\/{2,}/g, '/') // 替换多个连续的/为单个/
             .replace(/\/$/, '') // 移除末尾的/
@@ -179,7 +179,7 @@ export async function onRequestPost(context) {  // Contents of context object
     }
 
     // 构建文件ID
-    const nameType = url.searchParams.get('uploadNameType') || 'default'; // 获取命名方式
+    const nameType = url.searchParams.get('uploadNameType') || 'short'; // 获取命名方式，'default';
     const unique_index = time + Math.floor(Math.random() * 10000);
     let fullId = '';
     if (nameType === 'index') {
@@ -212,7 +212,7 @@ export async function onRequestPost(context) {  // Contents of context object
     // 清除CDN缓存
     const cdnUrl = `https://${url.hostname}/file/${fullId}`;
     await purgeCDNCache(env, cdnUrl, url, normalizedFolder);
-   
+
 
     // ====================================不同渠道上传=======================================
     // 出错是否切换渠道自动重试，默认开启
@@ -298,7 +298,7 @@ async function uploadFileToCloudflareR2(env, formdata, fullId, metadata, returnL
     }
 
     const r2Channel = r2Settings.channels[0];
-    
+
     const R2DataBase = env.img_r2;
 
     // 写入R2数据库
@@ -325,7 +325,7 @@ async function uploadFileToCloudflareR2(env, formdata, fullId, metadata, returnL
 
     // 成功上传，将文件ID返回给客户端
     return new Response(
-        JSON.stringify([{ 'src': `${returnLink}` }]), 
+        JSON.stringify([{ 'src': `${returnLink}` }]),
         {
             status: 200,
             headers: { 'Content-Type': 'application/json' }
@@ -457,8 +457,8 @@ async function uploadFileToTelegram(env, formdata, fullId, metadata, fileExt, fi
 
     const defaultType = {'url': 'sendDocument', 'type': 'document'};
 
-    let sendFunction = Object.keys(fileTypeMap).find(key => fileType.startsWith(key)) 
-        ? fileTypeMap[Object.keys(fileTypeMap).find(key => fileType.startsWith(key))] 
+    let sendFunction = Object.keys(fileTypeMap).find(key => fileType.startsWith(key))
+        ? fileTypeMap[Object.keys(fileTypeMap).find(key => fileType.startsWith(key))]
         : defaultType;
 
     // GIF 发送接口特殊处理
@@ -476,8 +476,8 @@ async function uploadFileToTelegram(env, formdata, fullId, metadata, fileExt, fi
     newFormdata.append('chat_id', tgChatId);
     newFormdata.append(sendFunction.type, formdata.get('file'));
 
-    
-    // 构建目标 URL 
+
+    // 构建目标 URL
     // const targetUrl = new URL(url.pathname, 'https://telegra.ph'); // telegraph接口，已失效，缅怀
     const targetUrl = new URL(`https://api.telegram.org/bot${tgBotToken}/${sendFunction.url}`); // telegram接口
     // 目标 URL 剔除 authCode 参数
@@ -568,7 +568,7 @@ async function uploadFileToExternal(env, formdata, fullId, metadata, returnLink,
 
     // 返回结果
     return new Response(
-        JSON.stringify([{ 'src': `${returnLink}` }]), 
+        JSON.stringify([{ 'src': `${returnLink}` }]),
         {
             status: 200,
             headers: { 'Content-Type': 'application/json' }
@@ -650,7 +650,7 @@ async function getFilePath(bot_token, file_id) {
             "User-Agent": " Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome"
           },
         })
-    
+
         let responseData = await res.json();
         if (responseData.ok) {
           const file_path = responseData.result.file_path
@@ -690,10 +690,10 @@ async function purgeCDNCache(env, cdnUrl, url, normalizedFolder) {
 }
 
 function isExtValid(fileExt) {
-    return ['jpeg', 'jpg', 'png', 'gif', 'webp', 
+    return ['jpeg', 'jpg', 'png', 'gif', 'webp',
     'mp4', 'mp3', 'ogg',
     'mp3', 'wav', 'flac', 'aac', 'opus',
-    'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf', 
+    'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'pdf',
     'txt', 'md', 'json', 'xml', 'html', 'css', 'js', 'ts', 'go', 'java', 'php', 'py', 'rb', 'sh', 'bat', 'cmd', 'ps1', 'psm1', 'psd', 'ai', 'sketch', 'fig', 'svg', 'eps', 'zip', 'rar', '7z', 'tar', 'gz', 'bz2', 'xz', 'apk', 'exe', 'msi', 'dmg', 'iso', 'torrent', 'webp', 'ico', 'svg', 'ttf', 'otf', 'woff', 'woff2', 'eot', 'apk', 'crx', 'xpi', 'deb', 'rpm', 'jar', 'war', 'ear', 'img', 'iso', 'vdi', 'ova', 'ovf', 'qcow2', 'vmdk', 'vhd', 'vhdx', 'pvm', 'dsk', 'hdd', 'bin', 'cue', 'mds', 'mdf', 'nrg', 'ccd', 'cif', 'c2d', 'daa', 'b6t', 'b5t', 'bwt', 'isz', 'isz', 'cdi', 'flp', 'uif', 'xdi', 'sdi'
     ].includes(fileExt);
 }
@@ -732,11 +732,11 @@ async function getIPAddress(ip) {
     try {
         const ipInfo = await fetch(`https://apimobile.meituan.com/locate/v2/ip/loc?rgeo=true&ip=${ip}`);
         const ipData = await ipInfo.json();
-        
+
         if (ipInfo.ok && ipData.data) {
             const lng = ipData.data?.lng || 0;
             const lat = ipData.data?.lat || 0;
-            
+
             // 读取具体地址
             const addressInfo = await fetch(`https://apimobile.meituan.com/group/v1/city/latlng/${lat},${lng}?tag=0`);
             const addressData = await addressInfo.json();

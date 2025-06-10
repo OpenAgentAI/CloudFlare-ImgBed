@@ -19,9 +19,15 @@ export async function onRequestPost(context) {
     const rightAuthCode = securityConfig.auth.user.authCode;
 
     //验证authCode
-    if (rightAuthCode !== undefined && rightAuthCode !== '' && authCode !== rightAuthCode) {
-      return new Response('Unauthorized', { status: 401 })
+    if (
+      rightAuthCode !== undefined &&
+      (
+        (typeof rightAuthCode === 'string' && rightAuthCode !== '' && authCode !== rightAuthCode) ||
+        (Array.isArray(rightAuthCode) && rightAuthCode.length > 0 && !rightAuthCode.includes(authCode))
+      )
+    ) {
+      return new Response('Unauthorized', { status: 401 });
     }
     //返回登录成功
-    return new Response('Login success', { status: 200 })
+    return new Response('Login success', { status: 200 });
 }
