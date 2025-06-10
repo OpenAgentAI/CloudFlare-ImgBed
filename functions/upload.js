@@ -23,7 +23,8 @@ function UnauthorizedException(reason) {
 }
 
 function isValidAuthCode(envAuthCode, authCode) {
-    return authCode === envAuthCode;
+    return (typeof envAuthCode === 'string' && authCode === envAuthCode) ||
+           (Array.isArray(envAuthCode) && envAuthCode.includes(authCode));
 }
 
 function isAuthCodeDefined(authCode) {
