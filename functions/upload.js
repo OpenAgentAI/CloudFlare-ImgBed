@@ -28,7 +28,7 @@ function isValidAuthCode(envAuthCode, authCode) {
 }
 
 function isAuthCodeDefined(authCode) {
-    return authCode !== undefined && authCode !== null && authCode.trim() !== '';
+    return authCode !== undefined && authCode !== null;
 }
 
 
