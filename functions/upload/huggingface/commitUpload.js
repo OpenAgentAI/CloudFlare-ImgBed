@@ -4,6 +4,7 @@
  * 在前端直接上传文件到 S3 后，调用此 API 提交 LFS 文件引用
  */
 
+import { parseUploadTags } from '../../utils/uploadTags.js';
 import { HuggingFaceAPI } from '../../utils/storage/huggingfaceAPI.js';
 import { fetchPageConfig, fetchUploadConfig } from '../../utils/sysConfig.js';
 import { getDatabase } from '../../utils/databaseAdapter.js';
@@ -31,6 +32,13 @@ export async function onRequestPost(context) {
                 status: 400,
                 headers: { 'Content-Type': 'application/json' }
             });
+        }
+
+        let uploadTags;
+        try {
+            uploadTags = parseUploadTags(body.tags);
+        } catch (error) {
+            return createResponse(error.message, { status: 400 });
         }
 
         // 路径安全处理：使用统一的路径安全函数
@@ -109,7 +117,7 @@ export async function onRequestPost(context) {
             TimeStamp: Date.now(),
             Label: "None",
             Directory: normalizedDirectory,
-            Tags: []
+            Tags: uploadTags
         };
 
         // 图像审查（公开仓库）

@@ -1,3 +1,4 @@
+import { parseUploadTags } from '../utils/uploadTags.js';
 import { userAuthCheck, UnauthorizedResponse } from "../utils/auth/userAuth";
 import { fetchUploadConfig, fetchSecurityConfig, fetchPageConfig } from "../utils/sysConfig";
 import {
@@ -33,6 +34,12 @@ export async function onRequest(context) {  // Contents of context object
     const requiredPermission = 'upload';
     if (!await userAuthCheck(env, url, request, requiredPermission)) {
         return UnauthorizedResponse('Unauthorized');
+    }
+
+    try {
+        context.uploadTags = parseUploadTags(url.searchParams.get('tags'));
+    } catch (error) {
+        return createResponse(error.message, { status: 400 });
     }
 
     // 获得上传IP
@@ -177,7 +184,7 @@ async function processFileUpload(context, formdata = null) {
         TimeStamp: time,
         Label: "None",
         Directory: normalizedFolder === '' ? '' : normalizedFolder + '/',
-        Tags: []
+        Tags: context.uploadTags
     };
 
     // 添加图片尺寸信息
