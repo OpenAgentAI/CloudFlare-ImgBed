@@ -26,10 +26,11 @@ export async function onRequest(context) {
     try {
         // Get prefix from query parameters
         const prefix = url.searchParams.get('prefix') || '';
+        const all = url.searchParams.get('all') === 'true';
         const limit = parseInt(url.searchParams.get('limit') || '20', 10);
 
         // Validate limit
-        if (limit < 1 || limit > 100) {
+        if (!all && (limit < 1 || limit > 100)) {
             return new Response(JSON.stringify({
                 error: 'Invalid limit',
                 message: 'Limit must be between 1 and 100'
@@ -39,10 +40,11 @@ export async function onRequest(context) {
             });
         }
 
-        // Read from index (only first 1000 files)
+        // The picker requests all tags. The normal autocomplete path remains
+        // bounded so typing suggestions do not serialize the whole index.
         const result = await readIndex(context, {
             start: 0,
-            count: 1000,
+            count: all ? -1 : 1000,
             includeSubdirFiles: true
         });
 
@@ -72,9 +74,10 @@ export async function onRequest(context) {
         const tagsArray = Array.from(allTags).sort();
 
         // Filter by prefix
-        const filteredTags = prefix
-            ? filterTagsByPrefix(tagsArray, prefix, limit)
-            : tagsArray.slice(0, limit);
+        const matchedTags = prefix
+            ? filterTagsByPrefix(tagsArray, prefix, all ? tagsArray.length : limit)
+            : tagsArray;
+        const filteredTags = all ? matchedTags : matchedTags.slice(0, limit);
 
         return new Response(JSON.stringify({
             success: true,
