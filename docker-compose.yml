@@ -1,8 +1,13 @@
 services:
   imgbed:
-    image: marseventh/cloudflare-imgbed:latest
+    # Build this checkout, rather than pulling the upstream Docker Hub image.
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: cloudflare-imgbed-local:latest
     ports:
-      - "7658:8080"
+      # Caddy is the only public entry point. Keep the application private.
+      - "127.0.0.1:7658:8080"
     volumes:
       - ./data:/app/data
     restart: unless-stopped
